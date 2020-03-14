@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peliculas/src/providers/pelicula_provider.dart';
+import 'package:peliculas/src/search/search_delegate.dart';
 import 'package:peliculas/src/widgets/card_swiper_widget.dart';
 import 'package:peliculas/src/widgets/movie_horizontal.dart';
 
@@ -18,7 +19,9 @@ class HomePage extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search), 
-            onPressed: (){})
+            onPressed: (){
+              showSearch(context: context, delegate: DataSearch());
+            })
         ],
       ),
       body: Container(
@@ -43,6 +46,7 @@ class HomePage extends StatelessWidget {
           }
           else{
               return Container(
+                height: 400.0,
                 child: Center(
                   child: CircularProgressIndicator()
                   )
@@ -64,7 +68,7 @@ class HomePage extends StatelessWidget {
             padding: EdgeInsets.only(left: 20.0),
             child: Text('Populares',style: Theme.of(context).textTheme.subhead,)
             ),
-          SizedBox(height: 10.0,),
+          SizedBox(height: 5.0,),
           StreamBuilder(
             stream: peliculasProvider.popularesStream,
             builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
